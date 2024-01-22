@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  </head>
+  <body style="background-color: whitesmoke">
+    <!--Diseño Desktop-->
+    <div class="cuerpo d-none d-sm-block container-fluid">
+      <nav class="navbar navbar-expand navbar-light bg-light rounded">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img src="/img/logo.png" alt="" style="width: 90px; height: 70px"
+          /></a>
+          <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Mapa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Localidad</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Parámetros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Gráficos</a>
+              </li>
+            </ul>
+          </div>
+          <a class="navbar-brand me-2" href="#"
+            ><img
+              src="/img/usericon.png"
+              alt=""
+              style="width: 90px; height: 70px"
+          /></a>
+        </div>
+      </nav>
+      <div class="contenedorOpciones">
+        <div class="row">
+          <div class="col-12">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+            <div
+              id="mapidDesktop"
+              style="height: 50vh; width: 100%; opacity: 0.8"
+              class="rounded mt-3"
+            ></div>
+          </div>
+          <div class="col-4">
+            <button
+              class="card mt-3 rounded"
+              style="width: 18rem; max-height: 20rem"
+            >
+              <img
+                src="/img/localidadicon.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body d-none">
+                <p class="card-text" style="text-shadow: 2px 2px 10px black">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </button>
+          </div>
+          <div class="col-4">
+            <button
+              class="card mt-3 rounded"
+              style="width: 18rem; max-height: 20rem"
+            >
+              <img
+                src="/img/parametroicon.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body d-none">
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </button>
+          </div>
+          <div class="col-4">
+            <button
+              class="card mt-3 rounded"
+              style="width: 18rem; max-height: 20rem"
+            >
+              <img src="/img/graficoicon.png" class="card-img-top" alt="..." />
+              <div class="card-body d-none">
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Diseño Móvil-->
+    <div class="d-block d-sm-none">
+      <div class="fixed-top w-100">
+        <ul class="list-unstyled w-100">
+          <li class="d-inline w-25 d-flex align-items-center float-start">
+            <div class="h-50 rounded">
+              <a href="" class="nav-link"
+                ><img src="/img/logo.png" alt="" class="img-fluid"
+              /></a>
+            </div>
+          </li>
+          <li class="d-inline w-25 d-flex align-items-center float-end">
+            <div class="h-50 rounded">
+              <a href="" class="nav-link"
+                ><img src="/img/usericon.png" alt="" class="img-fluid"
+              /></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <nav class="d-flex fixed-bottom navbar-light bg-light">
+        <li class="d-inline w-25 d-flex align-items-end mb-1">
+          <div class="border border-dark h-100 rounded">
+            <a href="#mapaGeneral" class="nav-link"
+              ><img src="/img/mapaicon.png" alt="" class="img-fluid"
+            /></a>
+          </div>
+        </li>
+        <li class="d-inline w-25 d-flex align-items-end mb-1">
+          <div class="border border-dark h-100 rounded">
+            <a href="#localidad" class="nav-link"
+              ><img src="/img/localidadicon.png" alt="" class="img-fluid"
+            /></a>
+          </div>
+        </li>
+        <li class="d-inline w-25 d-flex align-items-end mb-1">
+          <div class="border border-dark h-100 rounded">
+            <a href="#reporteClima" class="nav-link"
+              ><img src="/img/parametroicon.png" alt="" class="img-fluid"
+            /></a>
+          </div>
+        </li>
+        <li class="d-inline w-25 d-flex align-items-end mb-1">
+          <div class="border border-dark h-100 rounded">
+            <a href="#graficos" class="nav-link"
+              ><img src="/img/graficoicon.png" alt="" class="img-fluid"
+            /></a>
+          </div>
+        </li>
+      </nav>
+    </div>
+
+    <div id="mapaGeneral" class="container d-block d-sm-none p-0">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+      <div id="mapidMobile" style="height: 100vh; width: 100%"></div>
+    </div>
+
+    <div id="localidad" class="container d-block d-sm-none d-flex p-0">
+      <img
+        src="/img/Honyarproof.jpg"
+        alt=""
+        style="height: 100vh; width: 100%"
+      />
+      <div
+        class="contenedor-texto titulo"
+        style="
+          margin-top: 2rem;
+          margin-left: 14vh;
+          width: auto;
+          text-align: center;
+        "
+      >
+        <h1>Hondarribia</h1>
+        <h3>16:45pm</h3>
+      </div>
+      <div
+        class="contenedor-texto descripcion"
+        style="margin-top: 75vh; width: 90%; margin-left: 2vh"
+      >
+        <p>
+          Pariatur id repellat cumque error earum minus magnam illum ut rem
+          commodi sunt quae accusamus.
+        </p>
+      </div>
+    </div>
+
+    <div class="container d-block d-sm-none p-0">
+      <div class="reporte-container mt-5" style="width: 29vh">
+        <h1 id="reporteClima">Reporte del Clima</h1>
+      </div>
+      <div
+        class="medidas-horizontal d-flex mt-5"
+        style="width: 324px; height: 90px"
+      >
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag1"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/temperaturaicon.jpg"
+            alt="Temperatura"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag2"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/vientodireccionicon.png"
+            alt="Dirección del viento"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag3"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/humedadicon.jpg"
+            alt="Humedad"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag4"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/vientovelocidadicon.jpg"
+            alt="Velocidad del viento"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag5"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/estadocieloicon.jpg"
+            alt="Estado del cielo"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag6"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/probprecipitacionicon.jpg"
+            alt="Probabilidad de precipitación"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag7"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/cotanieveicon.jpg"
+            alt="Cota de nieve"
+          />
+        </div>
+        <div class="medida m-2 d-inline-flex">
+          <img
+            id="drag8"
+            draggable="true"
+            ondragstart="drag(event)"
+            class="icono-medida"
+            src="/img/sensaciontermicaicon.jpg"
+            alt="Sensación Térmica"
+          />
+        </div>
+      </div>
+
+      <div class="medidas-vertical mt-5">
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div1"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          ></div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div3"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div4"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div5"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div6"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div7"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+        <div class="row">
+          <div
+            class="area-destino col-3 d-inline-flex mx-0"
+            id="div8"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+          >
+            <img class="" src="" alt="" />
+          </div>
+          <div
+            class="col-8 d-inline-flex h-100 align-items-center justify-content-center"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-block d-sm-none p-0">
+      <div class="reporte-container mt-5 mb-5" style="width: 15vh">
+        <h1 id="graficos">Gráficos</h1>
+      </div>
+      <div class="mt-5" style="margin: auto; text-align: center">
+        <button
+          class="boton btn btn-primary rounded mx-3 mt-3 mb-3"
+          onclick="mostrarGrafico('trimestre')"
+        >
+          Últimos 3 meses
+        </button>
+        <button
+          class="boton btn btn-primary rounded mt-3 mb-3"
+          onclick="mostrarGrafico('mes')"
+        >
+          Último mes
+        </button>
+        <button
+          class="boton btn btn-primary rounded mx-3 mt-3 mb-3"
+          onclick="mostrarGrafico('semana')"
+        >
+          Última semana
+        </button>
+      </div>
+      <div class="contenedorGrafico">
+        <canvas id="semana" class="graficos d-none"></canvas>
+        <canvas id="mes" class="graficos d-none"></canvas>
+        <canvas id="trimestre" class="graficos d-none"></canvas>
+      </div>
+    </div>
+
+    <script src="
+    https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js
+    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+.container {
+    background-color: whitesmoke;
+    height: 100vh;
+    z-index: -1;
+}
+
+.reporte-container {
+    background-color: white;
+    border: 3px solid whitesmoke;
+    margin: auto;
+    text-align: center;
+}
+
+.medidas-horizontal {
+    background-color: white;
+    border: 3px solid whitesmoke;
+    margin: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.medidas-vertical {
+    background-color: white;
+    border: 3px solid whitesmoke;
+    width: 317px;
+    height: 344px;
+    margin: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.medida {
+    width: 74px;
+    height: 66px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+.area-destino {
+    margin-left: 15px !important;
+    width: 74px;
+    height: 66px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+.graficos {
+    width: 100%;
+    max-width: 600px;
+}
+
+.boton {
+    width: 11vh;
+}
+
+.icono-medida {
+    object-fit: contain;
+}
+
+.contenedor-texto {
+    background-color: white;
+    border: 5px solid whitesmoke;
+    position: absolute;
+}
+
+.row {
+    height: 70px;
+}
+
+.cuerpo {
+    background-image: url('/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100vh;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.card:hover {
+    background-color: black;
+    opacity: 0.9;
+}
+
+.card:hover .card-body {
+    display: block !important;
+    position: absolute;
+    margin: auto;
+}
+
+.card:hover p {
+    color: whitesmoke;
+    font-weight: bold;
+}
