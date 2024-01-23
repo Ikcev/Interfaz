@@ -4,11 +4,29 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
 }).addTo(mapDesktop);
 
+var lugares = [
+    { "nombre": "Irun", "latitud": 43.3390, "longitud": -1.7896 },
+    { "nombre": "Donosti", "latitud": 43.3183, "longitud": -1.9812 },
+    { "nombre": "Renteria", "latitud": 43.3119, "longitud": -1.8985 }
+];
+
+lugares.forEach( function(sitio,i=0,lugares){
+    L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapDesktop)
+        .bindPopup(lugares[i].nombre)
+        .openPopup();
+});
+
 //MAPA
 var mapMobile = L.map("mapidMobile").setView([43.34548, -1.79738], 8);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
 }).addTo(mapMobile);
+
+lugares.forEach( function(sitio,i=0,lugares){
+    L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapMobile)
+        .bindPopup(lugares[i].nombre)
+        .openPopup();
+});
 
 
 //DRAG&DROP
