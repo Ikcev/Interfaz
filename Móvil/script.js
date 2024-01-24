@@ -1,32 +1,66 @@
-//MAPADesktop
+// MAPADesktop
 var mapDesktop = L.map("mapidDesktop").setView([43.34548, -1.79738], 8);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
 }).addTo(mapDesktop);
 
 var lugares = [
-    { "nombre": "Irun", "latitud": 43.3390, "longitud": -1.7896 },
-    { "nombre": "Donosti", "latitud": 43.3183, "longitud": -1.9812 },
-    { "nombre": "Renteria", "latitud": 43.3119, "longitud": -1.8985 }
+    { "nombre": "Bilbao", "latitud": 43.2630, "longitud": -2.9350 },
+    { "nombre": "Vitoria-Gasteiz", "latitud": 42.8467, "longitud": -2.6716 },
+    { "nombre": "San Sebastián", "latitud": 43.3184, "longitud": -1.9812 },
+    { "nombre": "Hondarribia", "latitud": 43.3686, "longitud": -1.7966 },
+    { "nombre": "Zarautz", "latitud": 43.2826, "longitud": -2.1691 },
+    { "nombre": "Eibar", "latitud": 43.1836, "longitud": -2.4750 },
+    { "nombre": "Getxo", "latitud": 43.3566, "longitud": -3.0089 },
+    { "nombre": "Durango", "latitud": 43.1667, "longitud": -2.6333 },
+    { "nombre": "Azpeitia", "latitud": 43.1825, "longitud": -2.2650 },
+    { "nombre": "Lekeitio", "latitud": 43.3597, "longitud": -2.4981 }
 ];
 
-lugares.forEach( function(sitio,i=0,lugares){
-    L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapDesktop)
-        .bindPopup(lugares[i].nombre)
-        .openPopup();
+lugares.forEach(function (sitio, i = 0, lugares) {
+    var marker = L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapDesktop);
+    marker.bindPopup(lugares[i].nombre).openPopup();
+    marker.on('click', function () {
+        actualizarInformacion(lugares[i].nombre);
+    });
 });
 
-//MAPA
+// MAPAMobile
 var mapMobile = L.map("mapidMobile").setView([43.34548, -1.79738], 8);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
 }).addTo(mapMobile);
 
-lugares.forEach( function(sitio,i=0,lugares){
-    L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapMobile)
-        .bindPopup(lugares[i].nombre)
-        .openPopup();
+lugares.forEach(function (sitio, i = 0, lugares) {
+    var marker = L.marker([lugares[i].latitud, lugares[i].longitud]).addTo(mapMobile);
+    marker.bindPopup(lugares[i].nombre).openPopup();
+    marker.on('click', function () {
+        actualizarInformacion(lugares[i].nombre);
+    });
 });
+
+//Cambio nombre en localidad Mobile
+function actualizarInformacion(nombre) {
+    document.getElementById("nombreLocalidad").innerText = nombre;
+
+    const imagen = document.getElementById("imagenLocalidad");
+
+    if (nombre === "Azpeitia" || nombre === "Eibar") {
+        imagen.src = `https://source.unsplash.com/1920x1080/?basque-country`;
+    } else {
+        imagen.src = `https://source.unsplash.com/1920x1080/?${nombre}`;
+    }
+}
+
+//Actualizar hora Mobile
+const now = new Date();
+const hours = now.getHours();
+const minutes = now.getMinutes();
+
+const formattedHours = hours % 12 || 12;
+const amPm = hours >= 12 ? 'PM' : 'AM';
+
+document.getElementById("hora").innerHTML = formattedHours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + amPm;
 
 
 //DRAG&DROP
@@ -40,16 +74,26 @@ function drag(ev) {
 
 function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
 
+    var data = ev.dataTransfer.getData("text");
     var draggedElement = document.getElementById(data);
     var iconName = draggedElement.alt;
 
     var dropTarget = ev.target.closest('.area-destino');
-    var col9 = dropTarget.nextElementSibling;
 
-    col9.innerHTML = `<p>${iconName}</p>`;
+
+    if (dropTarget.querySelector('.icono-medida')) {
+        return;
+    }
+
+    dropTarget.innerHTML = `
+        <img src="${draggedElement.src}" alt="${iconName}" class="icono-medida" style="max-width: 100%; max-height: 100%;">
+    `;
+
+    var col8 = dropTarget.nextElementSibling;
+    col8.innerHTML = `
+        <p>${iconName}</p>
+    `;
 }
 
 //GRÁFICO SEMANA
@@ -262,11 +306,11 @@ new Chart("trimestre", {
 let graficoActual = null;
 
 function mostrarGrafico(idGrafico) {
-  if (graficoActual) {
-    document.getElementById(graficoActual).classList.add('d-none');
-  }
+    if (graficoActual) {
+        document.getElementById(graficoActual).classList.add('d-none');
+    }
 
-  document.getElementById(idGrafico).classList.remove('d-none');
+    document.getElementById(idGrafico).classList.remove('d-none');
 
-  graficoActual = idGrafico;
+    graficoActual = idGrafico;
 }
