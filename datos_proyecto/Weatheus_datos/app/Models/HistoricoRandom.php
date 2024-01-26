@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class HistoricoRandom extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
+    public $fillable = [
+        'estadoCielo',
+        'precipitacion',
+        'temp',
+        'humedad',
+        'sensTermica',
+        'dirViento',
+        'velViento',
+        'idMunicipio'
+    ];
 }
