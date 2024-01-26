@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('historico_el_tiempos', function (Blueprint $table) {
             $table->id();
             $table->string('estadoCielo')->nullable();
-            $table->int('precipitacion')->nullable();
+            $table->integer('precipitacion')->nullable();
             $table->float('temp')->nullable();
-            $table->int('tempMax')->nullable();
-            $table->int('tempMin')->nullable();
-            $table->int('humedad')->nullable();
-            $table->int('sensTermica')->nullable();
+            $table->integer('tempMax')->nullable();
+            $table->integer('tempMin')->nullable();
+            $table->integer('humedad')->nullable();
+            $table->integer('sensTermica')->nullable();
             $table->string('dirViento')->nullable();
-            $table->int('velViento')->nullable();
-            $table->int('idMunicipio')->nullable();
+            $table->integer('velViento')->nullable();
+            $table->unsignedBigInteger('idMunicipio')->nullable();
+
+            $table->foreign('idMunicipio')->references('id')->on('municipios');
         });
     }
 
