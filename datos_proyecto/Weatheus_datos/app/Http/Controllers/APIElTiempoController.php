@@ -17,7 +17,19 @@ class APIElTiempoController extends Controller
                 $data = json_decode($response->body(), true);
     
                 if (is_array($data)) {
-                    return view('api.index', ['data' => $data]);
+                    $todayData = $data['pronostico']['hoy'];
+
+                    $vientoPorPeriodos = [];
+    
+                    foreach ($todayData['viento'] as $periodoInfo) {
+                        $periodo = $periodoInfo['@attributes']['periodo'];
+                        $vientoPorPeriodos[$periodo]['velocidad'] = $periodoInfo['velocidad'];
+                        $vientoPorPeriodos[$periodo]['direccion'] = $periodoInfo['direccion'];
+                    }
+    
+                    return view('api.index', [
+                        'vientoPorPeriodos' => $vientoPorPeriodos,
+                    ]);
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }
