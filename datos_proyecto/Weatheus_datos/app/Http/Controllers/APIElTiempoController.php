@@ -12,10 +12,15 @@ class APIElTiempoController extends Controller
     {
         try {
             $response = Http::get('https://www.el-tiempo.net/api/json/v2/provincias/01/municipios/01001');
-
+    
             if ($response->successful()) {
-                $data = json_decode($response->body());
-                return view('api.index', ['data' => $data]);
+                $data = json_decode($response->body(), true);
+    
+                if (is_array($data)) {
+                    return view('api.index', ['data' => $data]);
+                } else {
+                    return view('error')->with('message', 'Error en la solicitud a la API');
+                }
             } else {
                 return view('error')->with('message', 'Error en la solicitud a la API');
             }
