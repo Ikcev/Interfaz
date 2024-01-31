@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/fetch-data', [APIElTiempoController::class, 'fetchDataFromApi']);
+Route::get('/fetch-data/{municipio}', [APIElTiempoController::class, 'show']);
