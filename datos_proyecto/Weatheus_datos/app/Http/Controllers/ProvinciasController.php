@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Provincia;
 use Illuminate\Http\Request;
 
 class ProvinciasController extends Controller
@@ -60,5 +61,28 @@ class ProvinciasController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function insercionProvincias(){
+
+        $provincias = [
+            'Bilbao' => ['ZoneId' => 'great_bilbao', 'CodProv' => '48'],
+            'Vitoria-Gasteiz' => ['ZoneId' => 'vitoria_gasteiz', 'CodProv' => '01'],
+            'San Sebastián' => ['ZoneId' => 'donostialdea', 'CodProv' => '20'],
+            'Zarautz' => ['ZoneId' => 'coastzone', 'CodProv' => '20'],
+            'Eibar' => ['ZoneId' => 'cantabrian_valleys', 'CodProv' => '20'],
+            'Durango' => ['ZoneId' => 'cantabrian_valleys', 'CodProv' => '48'],
+            'Lekeitio' => ['ZoneId' => 'coastzone', 'CodProv' => '48'],
+        ];
+        
+        foreach ($provincias as $name => $data) {
+            Provincia::create([
+                'codProv' => $data['CodProv'],
+                'zoneId' => $data['ZoneId'],
+            ]);
+        }
+        
+            return 'Datos insertados correctamente en la base de datos.';
+
     }
 }

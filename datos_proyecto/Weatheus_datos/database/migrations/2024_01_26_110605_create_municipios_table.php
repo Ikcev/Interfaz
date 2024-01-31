@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('municipios', function (Blueprint $table) {
             $table->id();
             $table->string('idMunicipio')->unique()->nullable();
-            $table->integer('locId')->unique()->nullable();
+            $table->string('locId')->unique()->nullable();
             $table->unsignedBigInteger('idProvincia')->nullable();
 
             $table->foreign('idProvincia')->references('id')->on('provincias');
