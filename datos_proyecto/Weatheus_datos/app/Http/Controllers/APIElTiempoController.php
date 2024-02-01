@@ -47,24 +47,22 @@ class APIElTiempoController extends Controller
     public function show(string $municipio)
     {
         try {
-            $municipioModel = Municipio::where('idMunicipio', $municipio)->with('provincia')->firstOrFail();
-        
+            $municipioModel = Municipio::where('idMunicipio', $municipio)->firstOrFail();
+    
             \Illuminate\Support\Facades\Log::info('Provincia ID: ' . $municipioModel->idProvincia);
             \Illuminate\Support\Facades\Log::info('Municipio ID: ' . $municipio);
-        
+    
             $provinciaId = $municipioModel->idProvincia;
             $locId = $municipioModel->locId;
+
+            \Illuminate\Support\Facades\Log::info('MunicipioELTIEMPO: ' . $locId);
     
-            \Illuminate\Support\Facades\Log::info('Provincia ID: ' . $provinciaId);
-            \Illuminate\Support\Facades\Log::info('LocID(ELTIEMPO): ' . $locId);
-    
-            $codProv = $municipioModel->provincia->codProv; // Asumiendo que la relación se llama 'provincia'
-        
-            return $this->fetchDataFromApi($provinciaId, $locId, $codProv);
+            return $this->fetchDataFromApi($provinciaId, $locId);
         } catch (ModelNotFoundException $e) {
             return view('error')->with('message', 'No se encontró el municipio con el ID proporcionado.');
         }
     }
+    
     
     
 }
