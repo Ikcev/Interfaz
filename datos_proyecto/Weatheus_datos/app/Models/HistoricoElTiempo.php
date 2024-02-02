@@ -21,6 +21,12 @@ class HistoricoElTiempo extends Model
         'sensTermica',
         'dirViento',
         'velViento',
+        'horaActual',
         'idMunicipio'
     ];
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'idMunicipio');
+    }
 }

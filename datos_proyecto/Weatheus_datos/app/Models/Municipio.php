@@ -16,4 +16,9 @@ class Municipio extends Model
         'locId',
         'idProvincia'
     ];
+
+    public function provincia()
+    {
+        return $this->belongsTo(Provincia::class, 'idProvincia');
+    }
 }

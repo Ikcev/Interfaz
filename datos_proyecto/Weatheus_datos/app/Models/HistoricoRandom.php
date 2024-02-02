@@ -21,4 +21,9 @@ class HistoricoRandom extends Model
         'velViento',
         'idMunicipio'
     ];
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'idMunicipio');
+    }
 }
