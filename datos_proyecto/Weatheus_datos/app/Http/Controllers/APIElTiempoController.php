@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Municipio;
 use App\Models\HistoricoElTiempo;
+use App\Http\Controllers\HistoricoElTiempoController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class APIElTiempoController extends Controller
 {
-    public function fetchDataFromApi($provinciaId, $municipioId)
+    public function fetchDataFromApi($provinciaId, $municipioId, $municipio)
     {
         try {
 
@@ -43,9 +44,29 @@ class APIElTiempoController extends Controller
                         $array_velocidad_viento[] = $periodoInfo['velocidad'];
                     }
 
-                    $temperatura = $array_sens_termica[14];
+                    $direccion = $array_direccion_viento[14];
 
-                    \Illuminate\Support\Facades\Log::info('Sensación Térmica : ' . $temperatura);
+                    \Illuminate\Support\Facades\Log::info('Dirección del Viento: ' . $direccion);
+
+                    $weatherData = [
+                        'temperatura_actual' => $temperatura_actual,
+                        'temperaturas_max' => $temperaturas_max,
+                        'temperaturas_min' => $temperaturas_min,
+                        'array_estado_cielo' => $array_estado_cielo,
+                        'array_precipitacion' => $array_precipitacion,
+                        'array_temperatura' => $array_temperatura,
+                        'array_sens_termica' => $array_sens_termica,
+                        'array_humedad_relativa' => $array_humedad_relativa,
+                        'array_direccion_viento' => $array_direccion_viento,
+                        'array_velocidad_viento' => $array_velocidad_viento,
+                        'municipio' => $municipio
+                    ];
+
+                    \Illuminate\Support\Facades\Log::info('Dirección del Viento: ' . $weatherData['array_precipitacion']);
+
+                    $historicoElTiempoController = new HistoricoElTiempoController();
+                    $historicoElTiempoController->insertData($weatherData);
+
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }
@@ -64,12 +85,13 @@ class APIElTiempoController extends Controller
 
             $codProv = $municipioModel->provincia->codProv;
             $locId = $municipioModel->locId;
+            $identifyMunicipio = $municipioModel->id;
     
             \Illuminate\Support\Facades\Log::info('MunicipioELTIEMPO: ' . $locId);
             \Illuminate\Support\Facades\Log::info('ProvinciaELTIEMPO: ' . $codProv);
             \Illuminate\Support\Facades\Log::info('////////////////////////////////');
-    
-            return $this->fetchDataFromApi($codProv, $locId);
+            \Illuminate\Support\Facades\Log::info('RelacionMunicipioELTIEMPO: ' . $identifyMunicipio);
+            return $this->fetchDataFromApi($codProv, $locId, $identifyMunicipio);
         } catch (ModelNotFoundException $e) {
             return view('error')->with('message', 'No se encontró el municipio con el ID proporcionado.');
         }
