@@ -8,6 +8,7 @@ use App\Http\Controllers\HistoricoElTiempoController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class APIElTiempoController extends Controller
 {
@@ -48,22 +49,28 @@ class APIElTiempoController extends Controller
 
                     \Illuminate\Support\Facades\Log::info('Dirección del Viento: ' . $direccion);
 
+                    $now = Carbon::now();
+                    $horaActualRedondeada = $now->minute(0)->second(0);
+
+                    \Illuminate\Support\Facades\Log::info('Hora: ' . round(date("H")));
+
+                    $weatherData['hora_actual_redondeada'] = $horaActualRedondeada;
+
                     $weatherData = [
+                        'array_estado_cielo' => $array_estado_cielo,
+                        'array_precipitacion' => $array_precipitacion,
                         'temperatura_actual' => $temperatura_actual,
                         'temperaturas_max' => $temperaturas_max,
                         'temperaturas_min' => $temperaturas_min,
-                        'array_estado_cielo' => $array_estado_cielo,
-                        'array_precipitacion' => $array_precipitacion,
-                        'array_temperatura' => $array_temperatura,
-                        'array_sens_termica' => $array_sens_termica,
                         'array_humedad_relativa' => $array_humedad_relativa,
+                        'array_sens_termica' => $array_sens_termica,
                         'array_direccion_viento' => $array_direccion_viento,
                         'array_velocidad_viento' => $array_velocidad_viento,
-                        'municipio' => $municipio
+                        'hora_actual_redondeada' => $horaActualRedondeada,
+                        'municipio' => $municipio,
                     ];
 
-                    \Illuminate\Support\Facades\Log::info('Dirección del Viento: ' . $weatherData['array_precipitacion']);
-
+                    \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
                     $historicoElTiempoController = new HistoricoElTiempoController();
                     $historicoElTiempoController->insertData($weatherData);
 

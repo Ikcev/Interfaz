@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Controllers\APIElTiempoController;
 use App\Models\WeatherData;
-use Carbon\Carbon;
+
 
 class HistoricoElTiempoController extends Controller
 {
@@ -67,14 +67,6 @@ class HistoricoElTiempoController extends Controller
 
     public function insercionRegistroElTiempo(array $weatherData){
         try {
-            // Obtener la hora actual redondeada
-            $now = Carbon::now();
-            $horaActualRedondeada = $now->minute(0)->second(0);
-
-            // Agregar la hora redondeada a los datos meteorológicos
-            $weatherData['hora_actual_redondeada'] = $horaActualRedondeada;
-
-            // Insertar los datos en la base de datos
             HistoricoElTiempo::create($weatherData);
 
             return response()->json(['success' => true]);
