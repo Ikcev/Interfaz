@@ -28,9 +28,29 @@ class HistoricoElTiempoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(array $weatherData)
     {
-        //
+        try {
+            \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
+
+            HistoricoElTiempo::create([
+                'estadoCielo' => $weatherData['array_estado_cielo'][round(date("H"))],
+                'precipitacion' => $weatherData['array_precipitacion'][round(date("H"))],
+                'temp' => $weatherData['temperatura_actual'],
+                'tempMax' => $weatherData['temperaturas_max'],
+                'tempMin' => $weatherData['temperaturas_min'],
+                'humedad' => $weatherData['array_humedad_relativa'][round(date("H"))],
+                'sensTermica' => $weatherData['array_sens_termica'][round(date("H"))],
+                'dirViento' => $weatherData['array_direccion_viento'][round(date("H"))],
+                'velViento' => $weatherData['array_velocidad_viento'][round(date("H"))],
+                'horaActual' => $weatherData['hora_actual_redondeada'],
+                'idMunicipio' => $weatherData['municipio'],
+            ]);
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -65,27 +85,7 @@ class HistoricoElTiempoController extends Controller
         //
     }
 
-    public function insercionRegistroElTiempo(array $weatherData){
-        try {
-            \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
+    public function insercionRegistroElTiempo(){
 
-            HistoricoElTiempo::create([
-                'estadoCielo' => $weatherData['array_estado_cielo'][round(date("H"))],
-                'precipitacion' => $weatherData['array_precipitacion'][round(date("H"))],
-                'temp' => $weatherData['temperatura_actual'],
-                'tempMax' => $weatherData['temperaturas_max'],
-                'tempMin' => $weatherData['temperaturas_min'],
-                'humedad' => $weatherData['array_humedad_relativa'][round(date("H"))],
-                'sensTermica' => $weatherData['array_sens_termica'][round(date("H"))],
-                'dirViento' => $weatherData['array_direccion_viento'][round(date("H"))],
-                'velViento' => $weatherData['array_velocidad_viento'][round(date("H"))],
-                'horaActual' => $weatherData['hora_actual_redondeada'],
-                'idMunicipio' => $weatherData['municipio'],
-            ]);
-    
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage()]);
-        }
     }
 }

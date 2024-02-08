@@ -22,7 +22,6 @@ class APIElTiempoController extends Controller
 
             $response = Http::get($url);
 
-            \Illuminate\Support\Facades\Log::info($response);
             if ($response->successful()) {
                 $data = json_decode($response->body(), true);
     
@@ -50,9 +49,9 @@ class APIElTiempoController extends Controller
                     \Illuminate\Support\Facades\Log::info('Dirección del Viento: ' . $direccion);
 
                     $now = Carbon::now();
-                    $horaActualRedondeada = $now->minute(0)->second(0);
+                    $horaActualRedondeada = $now->second(0);
 
-                    \Illuminate\Support\Facades\Log::info('Hora: ' . round(date("H")));
+                    \Illuminate\Support\Facades\Log::info('Hora: ' . $horaActualRedondeada);
 
                     $weatherData['hora_actual_redondeada'] = $horaActualRedondeada;
 
@@ -73,7 +72,7 @@ class APIElTiempoController extends Controller
                     \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
 
                     $historicoController = new HistoricoElTiempoController();
-                    return $historicoController->insercionRegistroElTiempo($weatherData);
+                    return $historicoController->store($weatherData);
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }
@@ -85,11 +84,29 @@ class APIElTiempoController extends Controller
         }
     }
 
-    public function show(string $municipio)
-    {
+    public function showAllMunicipios() {
+        $municipios = [
+            'bilbao',
+            'vitoria_gasteiz',
+            'donostia',
+            'hondarribia',
+            'zarautz',
+            'eibar',
+            'getxo',
+            'durango',
+            'azpeitia',
+            'lekeitio'
+        ];
+    
+        foreach ($municipios as $municipio) {
+            $this->show($municipio);
+        }
+    }
+    
+    public function show(string $municipio){
         try {
             $municipioModel = Municipio::with('provincia')->where('idMunicipio', $municipio)->firstOrFail();
-
+    
             $codProv = $municipioModel->provincia->codProv;
             $locId = $municipioModel->locId;
             $identifyMunicipio = $municipioModel->id;
@@ -103,5 +120,6 @@ class APIElTiempoController extends Controller
             return view('error')->with('message', 'No se encontró el municipio con el ID proporcionado.');
         }
     }
+    
     
 }
