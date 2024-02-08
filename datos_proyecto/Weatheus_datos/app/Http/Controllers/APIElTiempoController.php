@@ -71,9 +71,9 @@ class APIElTiempoController extends Controller
                     ];
 
                     \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
-                    $historicoElTiempoController = new HistoricoElTiempoController();
-                    $historicoElTiempoController->insertData($weatherData);
 
+                    $historicoController = new HistoricoElTiempoController();
+                    return $historicoController->insercionRegistroElTiempo($weatherData);
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }
