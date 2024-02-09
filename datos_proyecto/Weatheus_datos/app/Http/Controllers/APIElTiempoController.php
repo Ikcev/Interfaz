@@ -6,6 +6,7 @@ use App\Models\Municipio;
 use App\Models\HistoricoElTiempo;
 use App\Http\Controllers\HistoricoElTiempoController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Console\Commands\FetchDatosElTiempo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;

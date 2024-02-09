@@ -12,7 +12,7 @@ class FetchDatosElTiempo extends Command
      *
      * @var string
      */
-    protected $signature = 'app:fetch-datos-el-tiempo';
+    protected $signature = 'fetch:fetch-datos-el-tiempo';
 
     /**
      * The console command description.
@@ -27,6 +27,6 @@ class FetchDatosElTiempo extends Command
     public function handle()
     {
         $historico = new APIElTiempoController();
-        $historico -> showAllMunicipios();
+        $historico->showAllMunicipios();
     }
 }
