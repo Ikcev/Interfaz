@@ -22,6 +22,8 @@ Route::get('/insertMunicipios', [MunicipiosController::class, 'insercionMunicipi
 
 Route::get('/insertarDatos', [APIElTiempoController::class, 'showAllMunicipios']);
 
+Route::get('/insertarDatos', [APIElTiempoController::class, 'showAllMunicipios']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

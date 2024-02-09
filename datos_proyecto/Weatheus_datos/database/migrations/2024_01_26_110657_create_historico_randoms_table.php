@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('sensTermica')->nullable();
             $table->string('dirViento')->nullable();
             $table->integer('velViento')->nullable();
+            $table->datetime('horaActual')->nullable();
             $table->unsignedBigInteger('idMunicipio')->nullable();
 
             $table->foreign('idMunicipio')->references('id')->on('municipios');

@@ -19,6 +19,7 @@ class HistoricoRandom extends Model
         'sensTermica',
         'dirViento',
         'velViento',
+        'horaActual',
         'idMunicipio'
     ];
 

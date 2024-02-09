@@ -74,6 +74,9 @@ class APIElTiempoController extends Controller
 
                     $historicoController = new HistoricoElTiempoController();
                     return $historicoController->store($weatherData);
+
+                    $historicoRandom = new HistoricoRandomController();
+                    return $historicoRandom->generarDatosAleatorios($temperaturas_max, $temperaturas_min, $municipio);
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }
