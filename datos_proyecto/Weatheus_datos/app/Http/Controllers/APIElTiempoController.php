@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Municipio;
 use App\Models\HistoricoElTiempo;
 use App\Http\Controllers\HistoricoElTiempoController;
+use App\Http\Controllers\HistoricoRandomController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Console\Commands\FetchDatosElTiempo;
 use Illuminate\Http\Request;
@@ -54,8 +55,6 @@ class APIElTiempoController extends Controller
 
                     \Illuminate\Support\Facades\Log::info('Hora: ' . $horaActualRedondeada);
 
-                    $weatherData['hora_actual_redondeada'] = $horaActualRedondeada;
-
                     $weatherData = [
                         'array_estado_cielo' => $array_estado_cielo,
                         'array_precipitacion' => $array_precipitacion,
@@ -70,13 +69,12 @@ class APIElTiempoController extends Controller
                         'municipio' => $municipio,
                     ];
 
-                    \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
-
                     $historicoController = new HistoricoElTiempoController();
-                    return $historicoController->store($weatherData);
-
+                    $historicoController->store($weatherData);
+                    
                     $historicoRandom = new HistoricoRandomController();
-                    return $historicoRandom->generarDatosAleatorios($temperaturas_max, $temperaturas_min, $municipio);
+                    $historicoRandom->generarDatosAleatorios($temperaturas_max, $temperaturas_min, $municipio);
+                    
                 } else {
                     return view('error')->with('message', 'Error en la solicitud a la API');
                 }

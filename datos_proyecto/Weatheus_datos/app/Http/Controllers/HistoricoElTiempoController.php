@@ -30,19 +30,20 @@ class HistoricoElTiempoController extends Controller
      */
     public function store(array $weatherData)
     {
+        $currentHour = round(date("H"));
         try {
-            \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][round(date("H"))]);
+            \Illuminate\Support\Facades\Log::info('Temperatura: ' . $weatherData['array_sens_termica'][$currentHour]);
     
             HistoricoElTiempo::create([
-                'estadoCielo' => $weatherData['array_estado_cielo'][round(date("H"))] == "" ? 0 : $weatherData['array_estado_cielo'][round(date("H"))],
-                'precipitacion' => $weatherData['array_precipitacion'][round(date("H"))] == "" ? 0 : $weatherData['array_precipitacion'][round(date("H"))],
+                'estadoCielo' => $weatherData['array_estado_cielo'][$currentHour] == "" ? 0 : $weatherData['array_estado_cielo'][$currentHour],
+                'precipitacion' => $weatherData['array_precipitacion'][$currentHour] == "" ? 0 : $weatherData['array_precipitacion'][$currentHour],
                 'temp' => $weatherData['temperatura_actual'],
                 'tempMax' => $weatherData['temperaturas_max'],
                 'tempMin' => $weatherData['temperaturas_min'],
-                'humedad' => $weatherData['array_humedad_relativa'][round(date("H"))] == "" ? 0 : $weatherData['array_humedad_relativa'][round(date("H"))],
-                'sensTermica' => $weatherData['array_sens_termica'][round(date("H"))] == "" ? 0 : $weatherData['array_sens_termica'][round(date("H"))],
-                'dirViento' => $weatherData['array_direccion_viento'][round(date("H"))] == "" ? 0 : $weatherData['array_direccion_viento'][round(date("H"))],
-                'velViento' => $weatherData['array_velocidad_viento'][round(date("H"))] == "" ? 0 : $weatherData['array_velocidad_viento'][round(date("H"))],
+                'humedad' => $weatherData['array_humedad_relativa'][$currentHour] == "" ? 0 : $weatherData['array_humedad_relativa'][$currentHour],
+                'sensTermica' => $weatherData['array_sens_termica'][$currentHour] == "" ? 0 : $weatherData['array_sens_termica'][$currentHour],
+                'dirViento' => $weatherData['array_direccion_viento'][$currentHour] == "" ? 0 : $weatherData['array_direccion_viento'][$currentHour],
+                'velViento' => $weatherData['array_velocidad_viento'][$currentHour] == "" ? 0 : $weatherData['array_velocidad_viento'][$currentHour],
                 'horaActual' => $weatherData['hora_actual_redondeada'],
                 'idMunicipio' => $weatherData['municipio'],
                 ]);

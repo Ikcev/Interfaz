@@ -13,11 +13,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        //$schedule->command('app:fetch-datos-el-tiempo')->everyFifteenSeconds();
+        $schedule->command('fetch:fetch-datos-el-tiempo')->everyFifteenSeconds();
 
-        $schedule->call(function(){
-            Artisan::call('fetch:fetch-datos-el-tiempo');
-        })->everyFifteenSeconds()->between('1:00','23:00');
+        $chedule->command('fetch:fetch-datos-random')->everyFifteenMinutes();
     }
 
     /**
