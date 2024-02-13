@@ -51,6 +51,7 @@ function actualizarInformacion(nombre) {
     } else {
         lugaresGuardados.push(nombre);
     }
+
     localStorage.setItem('lugares', JSON.stringify(lugaresGuardados));
 }
 
