@@ -336,36 +336,36 @@ const url = "https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zo
 const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZXQwMS5hcGlrZXkiLCJpc3MiOiJJRVMgUExBSUFVTkRJIEJISSBJUlVOIiwiZXhwIjoyMjM4MTMxMDAyLCJ2ZXJzaW9uIjoiMS4wLjAiLCJpYXQiOjE2Mzk3NDc5MDcsImVtYWlsIjoiaWtjZXZAcGxhaWF1bmRpLm5ldCJ9.nbfhKPLI8jE7041hYZqHbqJt1-1zF7MMQW3R6HTvqCC3iljvf25kC4uSNLo6FPI1YWwNW-PB8IBNJeyFmdtoaKLsR2V1lLwUDvahmiVZaaBorwQJba6-ow9jt_9fcPuvjEpa_dizNQuzb1NIHjsC1BdV_VB1_N7TT0F7Qc8veA3gyZtt4L3ygkNG89nLcZtJvzZoTD9hwquT6h0JbGRwW80Rr0PVEawK0U6WCuKJVeuuOlDFq7nSog6JcgYUqiricSlWvDiQ2UHI_IS3ZFVA7UjxGoxwCtfXI_kDoOUeJvJS1BwPSb410yGPf-RPS0h0iIqqbwVFGaw8w2ibeugADg";
 
 async function fetchData() {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error("Error de autenticación. Comprueba tu token.");
-      } else {
-        throw new Error(`Error HTTP! Estado: ${response.status}`);
-      }
+    try {
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error("Error de autenticación. Comprueba tu token.");
+            } else {
+                throw new Error(`Error HTTP! Estado: ${response.status}`);
+            }
+        }
+
+        const data = await response.json();
+
+        if (data.forecastText && data.forecastText.SPANISH) {
+            const forecastTextSpanish = data.forecastText.SPANISH;
+
+            const forecastTextElement = document.getElementById("forecast-text");
+            forecastTextElement.innerText = forecastTextSpanish;
+
+            console.log(forecastTextSpanish);
+        } else {
+            throw new Error("No se pudo encontrar el pronóstico en español.");
+        }
+    } catch (error) {
+        console.error("Error al hacer la solicitud:", error);
     }
-    
-    const data = await response.json();
-
-    if (data.forecastText && data.forecastText.SPANISH) {
-      const forecastTextSpanish = data.forecastText.SPANISH;
-
-      const forecastTextElement = document.getElementById("forecast-text");
-      forecastTextElement.innerText = forecastTextSpanish;
-
-      console.log(forecastTextSpanish);
-    } else {
-      throw new Error("No se pudo encontrar el pronóstico en español.");
-    }
-  } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-  }
 }
 
 fetchData();
