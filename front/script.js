@@ -22,6 +22,7 @@ lugares.forEach(function (sitio, i = 0, lugares) {
     marker.bindPopup(lugares[i].nombre).openPopup();
     marker.on('click', function () {
         actualizarInformacion(lugares[i].nombre);
+        actualizarInformacion(sitio.nombre);
     });
 });
 
@@ -36,8 +37,22 @@ lugares.forEach(function (sitio, i = 0, lugares) {
     marker.bindPopup(lugares[i].nombre).openPopup();
     marker.on('click', function () {
         actualizarInformacion(lugares[i].nombre);
+        actualizarInformacion(sitio.nombre);
     });
 });
+
+//Función LocalStorage
+function actualizarInformacion(nombre) {
+    var lugaresGuardados = JSON.parse(localStorage.getItem('lugares')) || []; // Obtener lugares guardados o inicializar un array vacío si no hay ninguno
+    var index = lugaresGuardados.indexOf(nombre); // Verificar si el nombre ya está en el almacenamiento local
+
+    if (index !== -1) {
+        lugaresGuardados.splice(index, 1);
+    } else {
+        lugaresGuardados.push(nombre);
+    }
+    localStorage.setItem('lugares', JSON.stringify(lugaresGuardados));
+}
 
 //Cambio nombre en localidad Mobile
 function actualizarInformacion(nombre) {
@@ -337,15 +352,12 @@ async function fetchData() {
     
     const data = await response.json();
 
-    // Verificar si existe forecastText y es de tipo SPANISH
     if (data.forecastText && data.forecastText.SPANISH) {
       const forecastTextSpanish = data.forecastText.SPANISH;
 
-      // Mostrar el texto en la página HTML
       const forecastTextElement = document.getElementById("forecast-text");
       forecastTextElement.innerText = forecastTextSpanish;
 
-      // Mostrar el texto por consola
       console.log(forecastTextSpanish);
     } else {
       throw new Error("No se pudo encontrar el pronóstico en español.");
@@ -355,7 +367,6 @@ async function fetchData() {
   }
 }
 
-// Llamar a la función para obtener los datos
 fetchData();
 
 
