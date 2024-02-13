@@ -331,12 +331,18 @@ fetch(url, {
   return response.json();
 })
 .then(data => {
+  // Obtener el texto del pronóstico en español
   const forecastTextSpanish = data.forecastText.SPANISH;
 
+  // Mostrar el texto en la página HTML
   const forecastTextElement = document.getElementById("forecast-text");
   forecastTextElement.innerText = forecastTextSpanish;
+
+  // Mostrar el texto por consola
+  console.log(forecastTextSpanish);
 })
 .catch(error => {
   console.error("Error al hacer la solicitud:", error);
 });
+
 
