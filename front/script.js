@@ -1,3 +1,14 @@
+var iconoMarcadorClic = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/5737/5737612.png', // Ruta a la imagen del nuevo icono
+    iconSize: [32, 32], // Tamaño del icono
+    iconAnchor: [16, 32], // Punto de anclaje del icono
+});
+
+function cambiarIconoMarcador(event) {
+    var marcador = event.target;
+    marcador.setIcon(iconoMarcadorClic);
+}
+
 // MAPADesktop
 var mapDesktop = L.map("mapidDesktop").setView([43.34548, -1.79738], 8);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -25,17 +36,6 @@ lugares.forEach(function (sitio, i = 0, lugares) {
         actualizarInformacion(sitio.nombre);
         marker.setIcon(iconoMarcadorClic);
     });
-});
-
-function cambiarIconoMarcador(event) {
-    var marcador = event.target;
-    marcador.setIcon(iconoMarcadorClic);
-}
-
-var iconoMarcadorClic = L.icon({
-    iconUrl: 'icono_clic.png', // Ruta a la imagen del nuevo icono
-    iconSize: [32, 32], // Tamaño del icono
-    iconAnchor: [16, 32], // Punto de anclaje del icono
 });
 
 // MAPAMobile
