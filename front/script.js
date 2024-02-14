@@ -23,7 +23,19 @@ lugares.forEach(function (sitio, i = 0, lugares) {
     marker.on('click', function () {
         actualizarInformacion(lugares[i].nombre);
         actualizarInformacion(sitio.nombre);
+        marker.setIcon(iconoMarcadorClic);
     });
+});
+
+function cambiarIconoMarcador(event) {
+    var marcador = event.target;
+    marcador.setIcon(iconoMarcadorClic);
+}
+
+var iconoMarcadorClic = L.icon({
+    iconUrl: 'icono_clic.png', // Ruta a la imagen del nuevo icono
+    iconSize: [32, 32], // Tamaño del icono
+    iconAnchor: [16, 32], // Punto de anclaje del icono
 });
 
 // MAPAMobile
@@ -38,13 +50,14 @@ lugares.forEach(function (sitio, i = 0, lugares) {
     marker.on('click', function () {
         actualizarInformacion(lugares[i].nombre);
         actualizarInformacion(sitio.nombre);
+        marker.setIcon(iconoMarcadorClic);
     });
 });
 
 //Función LocalStorage
 function actualizarInformacion(nombre) {
-    var lugaresGuardados = JSON.parse(localStorage.getItem('lugares')) || []; // Obtener lugares guardados o inicializar un array vacío si no hay ninguno
-    var index = lugaresGuardados.indexOf(nombre); // Verificar si el nombre ya está en el almacenamiento local
+    var lugaresGuardados = JSON.parse(localStorage.getItem('lugares')) || [];
+    var index = lugaresGuardados.indexOf(nombre);
 
     if (index !== -1) {
         lugaresGuardados.splice(index, 1);
